@@ -2,20 +2,263 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+	:root {
+		--background: 0 0% 0%;
+		--foreground: 0 0% 100%;
+
+		--card: 0 0% 7%;
+		--card-foreground: 0 0% 100%;
+
+		--popover: 0 0% 0%;
+		--popover-foreground: 0 0% 100%;
+
+		--primary: 58 96% 51%;
+
+		--secondary: 0 0% 15%;
+		--secondary-foreground: 0 0% 100%;
+
+		--muted: 0 0% 15%;
+		--muted-foreground: 0 0% 70%;
+
+		--accent: 48 100% 50%;
+		--accent-foreground: 0 0% 0%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 0 0% 100%;
+
+		--border: 48 100% 50%;
+		--input: 0 0% 15%;
+		--ring: 48 100% 50%;
+
+		--radius: 0;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.cyberpunk-corners {
+	position: relative;
+}
+
+.cyberpunk-corners::before,
+.cyberpunk-corners::after {
+	content: "";
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border: 2px solid theme("colors.primary.DEFAULT");
+}
+
+.cyberpunk-corners::before {
+	top: -2px;
+	left: -2px;
+	border-right: 0;
+	border-bottom: 0;
+}
+
+.cyberpunk-corners::after {
+	bottom: -2px;
+	right: -2px;
+	border-left: 0;
+	border-top: 0;
+}
+
+.nav-item {
+	@apply relative px-4 py-2 text-sm uppercase tracking-wider font-medium 
+         hover:text-primary transition-colors duration-200;
+}
+
+.nav-item::after {
+	content: "";
+	@apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary 
+         transition-all duration-200;
+}
+
+.nav-item:hover::after {
+	@apply w-full;
+}
+
+.button-cyber {
+	@apply relative px-8 py-2 bg-black text-primary border-2 border-primary
+         uppercase tracking-wider font-bold hover:bg-primary/10 
+         transition-all duration-200;
+}
+
+.button-cyber::before,
+.button-cyber::after {
+	content: "";
+	@apply absolute w-2 h-2 bg-primary;
+}
+
+.button-cyber::before {
+	@apply -top-0.5 -left-0.5;
+}
+
+.button-cyber::after {
+	@apply -bottom-0.5 -right-0.5;
+}
+
+.cyberpunk-nav {
+	@apply relative flex items-center bg-black px-4 py-2;
+	clip-path: polygon(
+		20px 0,
+		100% 0,
+		100% calc(100% - 20px),
+		calc(100% - 20px) 100%,
+		0 100%,
+		0 20px
+	);
+}
+
+.cyberpunk-nav::before {
+	content: "";
+	@apply absolute inset-0 border border-primary pointer-events-none;
+	clip-path: polygon(
+		20px 0,
+		100% 0,
+		100% calc(100% - 20px),
+		calc(100% - 20px) 100%,
+		0 100%,
+		0 20px
+	);
+}
+
+.cyberpunk-nav::after {
+	content: "";
+	@apply absolute inset-0 pointer-events-none;
+	background: linear-gradient(
+				to bottom right,
+				theme("colors.primary.DEFAULT") 0%,
+				theme("colors.primary.DEFAULT") 50%,
+				transparent 50%,
+				transparent 100%
+			)
+			top left,
+		linear-gradient(
+				to top left,
+				theme("colors.primary.DEFAULT") 0%,
+				theme("colors.primary.DEFAULT") 50%,
+				transparent 50%,
+				transparent 100%
+			)
+			bottom right;
+	background-size: 22px 22px;
+	background-repeat: no-repeat;
+}
+
+.cyberpunk-nav-item {
+	@apply px-4 py-1 text-sm uppercase tracking-wider font-medium text-white 
+         hover:text-primary transition-colors duration-200;
+}
+
+.cyberpunk-nav-item.active {
+	@apply bg-primary text-black;
+}
+
+.install-tabs {
+	@apply flex border-b border-primary/30;
+}
+
+.install-tab {
+	@apply px-4 py-2 text-sm font-medium text-white hover:text-primary cursor-pointer;
+}
+
+.install-tab.active {
+	@apply text-primary border-b-2 border-primary;
+}
+
+.install-content {
+	@apply mt-4 p-4 bg-secondary text-primary font-mono text-sm;
+}
+
+.dot-pattern {
+	background-image: radial-gradient(circle, theme("colors.primary.DEFAULT") 1px, transparent 1px);
+	background-size: 40px 40px;
+	background-position: 0 0;
+}
+
+.section-divider {
+	position: relative;
+	margin: 0;
+}
+
+.section-divider::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: -15px;
+	width: 100%;
+	height: 15px;
+	background-color: theme("colors.primary.DEFAULT");
+	clip-path: polygon(
+		0% 100%,
+		5% 0%,
+		15% 0%,
+		25% 100%,
+		35% 0%,
+		48% 0%,
+		60% 100%,
+		74% 0%,
+		84% 100%,
+		98% 0%,
+		100% 100%
+	);
+}
+
+.section-divider::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -15px;
+	width: 100%;
+	height: 15px;
+	background-color: theme("colors.primary.DEFAULT");
+	clip-path: polygon(
+		0% 0%,
+		5% 100%,
+		15% 100%,
+		25% 0%,
+		35% 100%,
+		48% 100%,
+		60% 0%,
+		74% 100%,
+		84% 0%,
+		98% 100%,
+		100% 0%
+	);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: theme("colors.black");
+}
+
+::-webkit-scrollbar-thumb {
+	background: theme("colors.primary.DEFAULT");
+	border: 2px solid theme("colors.black");
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: theme("colors.primary.DEFAULT");
+}
+
+.bg-noise {
+	background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/noise-pattern-90c709f6-7eLg1gM9Sk4DVRsWatpmGrchcpEmO9.png");
+	opacity: 0.65;
+}
+
+.getting-started-section {
+	background-color: rgba(0, 0, 0, 0.8);
 }
