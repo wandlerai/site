@@ -10,6 +10,7 @@ const config = {
 			},
 		],
 	},
+	serverExternalPackages: ["@huggingface/transformers"],
 };
 
 export default config;

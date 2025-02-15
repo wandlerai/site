@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { CodeBlockServer } from "@/components/ui/code-block-server";
 
-interface CodeEditorProps {
+interface CodeExampleProps {
 	code: string;
 	language: string;
 }
@@ -18,12 +18,10 @@ function LoadingFallback() {
 	);
 }
 
-const CodeEditor = ({ code, language }: CodeEditorProps) => {
+export function CodeExample({ code, language }: CodeExampleProps) {
 	return (
 		<Suspense fallback={<LoadingFallback />}>
 			<CodeBlockServer code={code} language={language} className="bg-primary/10" />
 		</Suspense>
 	);
-};
-
-export default CodeEditor;
+}

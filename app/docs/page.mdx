@@ -1,0 +1,58 @@
+# Introduction to Wandler
+
+Welcome to Wandler, a powerful JavaScript library that enables you to run AI models directly in your
+browser. With Wandler, you can leverage the power of machine learning without compromising on
+privacy or performance.
+
+## What is Wandler?
+
+Wandler is an open-source library built on top of transformers.js that makes it easy to run AI
+models in the browser using WebGPU. It provides a simple, intuitive API for working with various
+types of models:
+
+- Text Generation
+- Image Classification
+- Speech Recognition
+- Object Detection
+- And more...
+
+## Example Usage
+
+Here's a simple example of how to use Wandler:
+
+```typescript
+import { Wandler } from "wandler";
+
+// Load a text generation model
+const model = await Wandler.load("gpt2-small");
+
+// Generate text
+const output = await model.generate("The future of AI is");
+console.log(output);
+// => "The future of AI is bright and full of possibilities..."
+```
+
+## Key Features
+
+### Privacy First
+
+All processing happens locally in your browser. Your data never leaves your device, ensuring
+complete privacy and data security.
+
+### High Performance
+
+Wandler is optimized for WebGPU, delivering near-native performance for AI inference directly in the
+browser.
+
+### Easy to Use
+
+Simple, intuitive API that makes it easy to integrate AI capabilities into your web applications.
+
+### Open Source
+
+Fully open source and free to use. Built by the community, for the community.
+
+## Getting Started
+
+Ready to start using Wandler? Check out our [Installation Guide](/docs/installation) to get up and
+running in minutes.

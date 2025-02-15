@@ -107,7 +107,7 @@
 }
 
 .cyberpunk-nav {
-	@apply relative flex items-center bg-black px-4 py-2;
+	@apply relative flex items-center bg-black px-4;
 	clip-path: polygon(
 		20px 0,
 		100% 0,
@@ -155,7 +155,7 @@
 }
 
 .cyberpunk-nav-item {
-	@apply px-4 py-1 text-sm uppercase tracking-wider font-medium text-white 
+	@apply px-4 py-2 text-sm uppercase tracking-wider font-medium text-white 
          hover:text-primary transition-colors duration-200;
 }
 

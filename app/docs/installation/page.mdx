@@ -1,0 +1,80 @@
+# Installation
+
+Getting started with Wandler is easy. You can install it using your preferred package manager.
+
+## Prerequisites
+
+Before installing Wandler, make sure you have:
+
+- Node.js 16.x or later
+- A modern browser with WebGPU support (Chrome Canary or Edge Canary with appropriate flags enabled)
+
+## Installing Wandler
+
+You can install Wandler using npm, yarn, or pnpm:
+
+<CodeBlock code="npm install wandler" variant="install" />
+
+## Basic Setup
+
+After installation, you can import Wandler in your project:
+
+```typescript
+import { Wandler } from "wandler";
+
+// Initialize Wandler with default configuration
+const wandler = new Wandler();
+
+// Or with custom configuration
+const wandler = new Wandler({
+	cache: true,
+	maxCacheSize: "1GB",
+	preferredDevice: "webgpu",
+});
+```
+
+## WebGPU Setup
+
+To use WebGPU acceleration, you need to ensure your browser supports it:
+
+1. Use Chrome Canary or Edge Canary
+2. Enable WebGPU flags:
+   - Navigate to `chrome://flags` or `edge://flags`
+   - Search for "WebGPU"
+   - Enable "WebGPU Developer Features"
+   - Restart your browser
+
+## Verifying Installation
+
+You can verify your installation by running a simple test:
+
+```typescript
+import { Wandler } from "wandler";
+
+async function testInstallation() {
+	try {
+		const wandler = new Wandler();
+		const isReady = await wandler.isReady();
+		console.log("Wandler is ready:", isReady);
+
+		// Check WebGPU support
+		const hasWebGPU = await wandler.hasWebGPU();
+		console.log("WebGPU support:", hasWebGPU);
+	} catch (error) {
+		console.error("Installation test failed:", error);
+	}
+}
+
+testInstallation();
+```
+
+## Next Steps
+
+Now that you have Wandler installed, you can:
+
+1. Learn about different [Models](/docs/models) available
+2. Explore [WebGPU optimization](/docs/webgpu)
+3. Check out our examples for common use cases
+
+If you encounter any issues during installation, please check our troubleshooting guide or open an
+issue on GitHub.
