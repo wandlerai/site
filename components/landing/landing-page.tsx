@@ -123,12 +123,12 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 											<div className="flex items-center gap-2">
 												<button
 													onClick={handleCopy}
-													className="p-1 md:p-2 hover:text-primary transition-colors"
+													className="p-1 md:p-2 hover:text-primary transition-colors shrink-0"
 													title="Copy to clipboard"
 												>
 													{copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
 												</button>
-												<code className="font-mono text-xs md:text-sm overflow-x-auto whitespace-nowrap">
+												<code className="font-mono text-xs md:text-sm w-[140px] md:w-[180px]">
 													{installCommands[activeTab]}
 												</code>
 											</div>
