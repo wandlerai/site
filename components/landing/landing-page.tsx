@@ -33,11 +33,11 @@ export function LandingPage() {
 			<Header />
 
 			<main className="flex-grow pt-16">
-				<section className="min-h-screen relative overflow-hidden flex flex-col justify-center space-y-12 px-4 md:px-0 mb-4">
+				<section className="min-h-screen relative overflow-hidden flex flex-col justify-center space-y-12 px-4 md:px-0 my-12 md:my-4">
 					<div className="relative z-10">
 						<div className="container mx-auto">
 							<div className="grid md:grid-cols-[3fr_1fr] gap-8 md:gap-12 items-center w-full">
-								<div className="space-y-4 md:space-y-6">
+								<div className="space-y-10 md:space-y-6">
 									<h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-4">
 										run ai in your browser
 									</h1>
@@ -127,7 +127,6 @@ export function LandingPage() {
 							</div>
 						</div>
 					</div>
-
 					<ExperimentalBanner className="rotate-2" />
 				</section>
 
