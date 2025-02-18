@@ -79,7 +79,7 @@ export function LandingPage() {
 											{Object.keys(installCommands).map(tab => (
 												<div
 													key={tab}
-													className={`install-tab cursor-pointer px-2 md:px-3 py-1 rounded text-xs md:text-sm ${
+													className={`install-tab cursor-pointer px-2 md:px-3 py-1 rounded ${
 														activeTab === tab ? "bg-primary/20 text-primary" : "hover:bg-primary/10"
 													}`}
 													onClick={() => setActiveTab(tab as PackageManager)}
@@ -97,13 +97,13 @@ export function LandingPage() {
 												>
 													{copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
 												</button>
-												<code className="font-mono text-xs md:text-sm w-[140px] md:w-[180px]">
+												<code className="font-mono w-[140px] md:w-[180px]">
 													{installCommands[activeTab]}
 												</code>
 											</div>
 											<Link
 												href="/llms.txt"
-												className="group relative px-2 md:px-3 py-1 md:py-2 text-[#0ff] rounded shrink-0 ml-4 md:ml-8 text-xs md:text-sm"
+												className="group relative px-2 md:px-3 py-1 md:py-2 text-[#0ff] rounded shrink-0 ml-4 md:ml-8"
 											>
 												<span className="relative z-10">llms.txt</span>
 												<div className="pointer-events-none absolute -inset-[1px] opacity-0 group-hover:opacity-100 animate-border"></div>
