@@ -119,7 +119,8 @@
 .cyberpunk-nav::after {
 	content: "";
 	@apply absolute inset-0 pointer-events-none;
-	background: linear-gradient(
+	background:
+		linear-gradient(
 				to bottom right,
 				theme("colors.primary.DEFAULT") 0%,
 				theme("colors.primary.DEFAULT") 50%,
@@ -327,17 +328,49 @@
 @keyframes rgb-shift {
 	0%,
 	100% {
-		text-shadow: -2px 0 #ff0000, 2px 0 #00ff00;
+		text-shadow:
+			-2px 0 #ffff00,
+			2px 0 #00ff00;
 	}
 	95%,
 	98% {
-		text-shadow: 2px 0 #0000ff, -2px 0 #ff0000;
+		text-shadow:
+			2px 0 #00ffff,
+			-2px 0 #ffff00;
 	}
 }
 
 .crt-text {
 	position: relative;
 	animation: rgb-shift 4s infinite linear;
+}
+
+@keyframes experimental-bg {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: -20px 0;
+	}
+}
+
+@keyframes experimental-bg-reverse {
+	0% {
+		background-position: -20px 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.animate-experimental-bg {
+	animation: experimental-bg 1s linear infinite;
+	background-size: 20px 20px;
+}
+
+.animate-experimental-bg-reverse {
+	animation: experimental-bg-reverse 1s linear infinite;
+	background-size: 20px 20px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -354,6 +387,8 @@
 	.animate-border-pulse,
 	.moving-scanlines,
 	.crt-text,
+	.animate-experimental-bg,
+	.animate-experimental-bg-reverse,
 	[class*="animate-["] {
 		animation: none !important;
 	}
