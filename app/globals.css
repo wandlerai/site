@@ -326,23 +326,56 @@
 }
 
 @keyframes rgb-shift {
-	0%,
-	100% {
+	0% {
 		text-shadow:
+			2px 0 #e41832,
 			-2px 0 #ffff00,
-			2px 0 #00ff00;
+			0 2px #00ffff,
+			0 -2px #00ff00,
+			2px 2px #ff00ff,
+			-2px -2px #ff8800,
+			2px -2px #00ff00,
+			-2px 2px #ffff00;
 	}
-	95%,
-	98% {
+	33% {
 		text-shadow:
 			2px 0 #00ffff,
-			-2px 0 #ffff00;
+			-2px 0 #e41832,
+			0 2px #ffff00,
+			0 -2px #ff00ff,
+			2px 2px #00ff00,
+			-2px -2px #ffff00,
+			2px -2px #ff8800,
+			-2px 2px #00ffff;
+	}
+	66% {
+		text-shadow:
+			2px 0 #ffff00,
+			-2px 0 #00ffff,
+			0 2px #ff00ff,
+			0 -2px #e41832,
+			2px 2px #ffff00,
+			-2px -2px #00ff00,
+			2px -2px #00ffff,
+			-2px 2px #ff8800;
+	}
+	100% {
+		text-shadow:
+			2px 0 #e41832,
+			-2px 0 #ffff00,
+			0 2px #00ffff,
+			0 -2px #00ff00,
+			2px 2px #ff00ff,
+			-2px -2px #ff8800,
+			2px -2px #00ff00,
+			-2px 2px #ffff00;
 	}
 }
 
 .crt-text {
 	position: relative;
-	animation: rgb-shift 4s infinite linear;
+	animation: rgb-shift 10s infinite linear;
+	mix-blend-mode: screen;
 }
 
 @keyframes experimental-bg {

@@ -61,12 +61,12 @@ const roadmapItems: RoadmapItem[] = [
 	{
 		title: "generateImage",
 		status: "upcoming",
-		description: "stable diffusion in your browser",
+		description: "create an image using a prompt",
 	},
 	{
 		title: "generateAudio",
 		status: "upcoming",
-		description: "text-to-speech and music generation",
+		description: "text to speech and speech to text",
 	},
 ];
 
