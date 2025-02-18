@@ -71,21 +71,6 @@
 	border-top: 0;
 }
 
-.nav-item {
-	@apply relative px-4 py-2 text-sm uppercase tracking-wider font-medium 
-         hover:text-primary transition-colors duration-200;
-}
-
-.nav-item::after {
-	content: "";
-	@apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary 
-         transition-all duration-200;
-}
-
-.nav-item:hover::after {
-	@apply w-full;
-}
-
 .button-cyber {
 	@apply relative px-8 py-2 bg-black text-primary border-2 border-primary
          uppercase tracking-wider font-bold hover:bg-primary/10 
@@ -161,22 +146,6 @@
 
 .cyberpunk-nav-item.active {
 	@apply bg-primary text-black;
-}
-
-.install-tabs {
-	@apply flex;
-}
-
-.install-tab {
-	@apply px-4 py-2 text-sm font-medium text-white hover:text-primary cursor-pointer;
-}
-
-.install-tab.active {
-	@apply text-primary border-b-2 border-primary;
-}
-
-.install-content {
-	@apply mt-4 bg-secondary text-primary font-mono text-sm;
 }
 
 .dot-pattern {
