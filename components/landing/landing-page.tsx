@@ -97,9 +97,7 @@ export function LandingPage() {
 												>
 													{copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
 												</button>
-												<code className="font-mono w-[140px] md:w-[180px]">
-													{installCommands[activeTab]}
-												</code>
+												<code className="font-mono w-[180px]">{installCommands[activeTab]}</code>
 											</div>
 											<Link
 												href="/llms.txt"
