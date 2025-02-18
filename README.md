@@ -1,5 +1,3 @@
-# wandler
-
 <p align="center">
   <img src="public/assets/wandler_logo_v5.svg" alt="wandler logo" width="900">
 </p>

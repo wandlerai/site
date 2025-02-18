@@ -1,4 +1,5 @@
-# wandler - run ai in your browser	
+# wandler
+run ai in your browser	
 Version: 0.1.0 (Alpha)
 Last updated: 2025-02-18
 
