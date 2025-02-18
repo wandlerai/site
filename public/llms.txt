@@ -1,0 +1,132 @@
+# Wandler - Run AI Directly in Your Browser
+Version: 0.1.0 (Alpha)
+Last updated: 2024-02-20
+
+## Overview
+
+Wandler is a TypeScript library that lets you run AI models directly in your browser using transformers.js. 
+No server required. Everything runs locally and privately.
+
+## Core Features
+
+### 1. loadModel()
+Load any ONNX model optimized for web browsers:
+
+```typescript
+import { loadModel } from "wandler";
+
+const model = await loadModel("onnx-community/Qwen2.5-Coder-0.5B-Instruct", {
+  // Optional: specify device and other options
+  device: "webgpu", // "webgpu" | "wasm" | "cpu" | "auto" | "best"
+  onProgress: (info) => {
+    console.log(`Loading: ${info.file} - ${info.loaded}/${info.total} bytes`);
+  }
+});
+```
+
+### 2. generateText()
+Generate text with any loaded model:
+
+```typescript
+import { generateText } from "wandler";
+
+const response = await generateText({
+  model,
+  messages: [
+    { role: "user", content: "Write a hello world in Python" }
+  ],
+  // Optional: generation parameters
+  max_new_tokens: 100,
+  temperature: 0.7,
+  top_p: 0.95
+});
+
+console.log(response); // "Here's a simple Hello World program in Python:\n\nprint('Hello, World!')"
+```
+
+### 3. streamText()
+Stream text generation token by token:
+
+```typescript
+import { streamText } from "wandler";
+
+const { stream } = await streamText({
+  model,
+  messages: [
+    { role: "user", content: "Count from 1 to 5" }
+  ],
+  // Optional: generation parameters
+  max_new_tokens: 100
+});
+
+// Stream tokens as they're generated
+for await (const token of stream) {
+  process.stdout.write(token);
+}
+```
+
+## Supported Models
+
+### Recommended Models
+
+onnx-community/Qwen2.5-Coder-0.5B-Instruct
+- Optimized for code generation and instruction following
+- Size: 500MB
+- Device: WASM, WebGPU
+- License: Apache 2.0
+- Best for: Code completion, simple instructions
+
+onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX
+- General purpose text generation and chat
+- Size: 1.5GB
+- Device: WASM, WebGPU
+- License: Apache 2.0
+- Best for: Chat, longer text generation
+
+onnx-community/Phi-3.5-mini-instruct-onnx-web
+- Instruction following and chat
+- Size: 800MB
+- Device: WASM, WebGPU
+- License: MIT
+- Best for: Fast responses, simple tasks
+
+## Performance Tips
+
+1. Use WebGPU when available for best performance
+   ```typescript
+   const model = await loadModel("model-id", { device: "best" });
+   ```
+
+2. Enable worker threads for background processing
+   ```typescript
+   const model = await loadModel("model-id", { useWorker: true });
+   ```
+
+3. Use streaming for better user experience
+   ```typescript
+   const { stream } = await streamText({ ... });
+   ```
+
+## Browser Support
+
+- Chrome/Edge 113+ (WebGPU)
+- Firefox (WASM)
+- Safari 16.4+ (WASM)
+
+## Resources
+
+- Documentation: https://wandler.ai/docs
+- GitHub: https://github.com/wandlerai/wandler
+- Discord: https://discord.gg/wandler
+
+## Coming Soon
+
+onnx-community/Stable-Diffusion-2-ONNX
+- Text to image generation
+- Status: In development
+- Expected: Q2 2024
+
+onnx-community/Whisper-Small-ONNX
+- Speech recognition
+- Status: In development
+- Expected: Q2 2024 

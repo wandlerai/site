@@ -1,0 +1,29 @@
+@keyframes flicker {
+	0% {
+		background: rgba(255, 255, 255, 0);
+	}
+	100% {
+		background: rgba(255, 255, 255, 0.2);
+	}
+}
+
+@keyframes scanline {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(100%);
+	}
+}
+
+.moving-scanlines {
+	background: repeating-linear-gradient(
+		0deg,
+		transparent,
+		transparent 50%,
+		rgba(255, 255, 255, 0.04) 50%,
+		rgba(255, 255, 255, 0.04) 100%
+	);
+	background-size: 100% 4px;
+	animation: scanline 4s linear infinite;
+}

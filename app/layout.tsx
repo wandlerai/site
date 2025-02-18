@@ -8,9 +8,27 @@ import { Toaster } from "@/components/ui/toaster";
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Wandler - Run ML Models in the Browser",
+	title: "wandler",
 	description:
-		"Democratize AI with Wandler, an open-source JavaScript library for running machine learning models directly in the browser.",
+		"run ai in the browser. inspired by the ▲ AI SDK and build on top of 🤗 transformers.js",
+
+	openGraph: {
+		images: [
+			"https://5xvkmufwzznj1ey2.public.blob.vercel-storage.com/wandler_banner_v1-DmmG40A1TwkpZiQiBxqsmHyXwrmSSS.jpg",
+		],
+		url: "https://wandler.ai",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "wandler",
+		description: "run ai in the browser",
+		siteId: "",
+		creator: "@wandler________",
+		creatorId: "",
+		images: [
+			"https://5xvkmufwzznj1ey2.public.blob.vercel-storage.com/wandler_banner_v1-DmmG40A1TwkpZiQiBxqsmHyXwrmSSS.jpg",
+		],
+	},
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
