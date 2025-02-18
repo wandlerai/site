@@ -12,7 +12,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "wandler",
 	description:
-		"run ai in the browser. inspired by the ▲ AI SDK and build on top of 🤗 transformers.js",
+		"run ai in your browser. inspired by the ▲ AI SDK and build on top of 🤗 transformers.js",
 
 	openGraph: {
 		images: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 	twitter: {
 		card: "summary_large_image",
 		title: "wandler",
-		description: "run ai in the browser",
+		description: "run ai in your browser",
 		siteId: "",
 		creator: "@wandler________",
 		creatorId: "",
