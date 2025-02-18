@@ -39,7 +39,7 @@ export function DemocratizeBanner({ className }: DemocratizeBannerProps) {
 				{/* Main content */}
 				<h1
 					data-text="DEMOCRATIZE AI"
-					className="crt-text text-[13vw] font-black text-white leading-none tracking-tighter text-center relative mix-blend-screen"
+					className="crt-text text-[8vw] md:text-[13vw] font-black text-white leading-none tracking-tighter text-center relative mix-blend-screen px-4"
 				>
 					DEMOCRATIZE AI
 				</h1>

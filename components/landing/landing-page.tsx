@@ -64,15 +64,15 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 			<Header />
 
 			<main className="flex-grow pt-16">
-				<section className="h-screen relative overflow-hidden flex flex-col justify-center space-y-12">
+				<section className="min-h-screen relative overflow-hidden flex flex-col justify-center space-y-12 px-4 md:px-0 mb-4">
 					<div className="relative z-10">
-						<div className="container mx-auto px-4">
-							<div className="grid md:grid-cols-[3fr_1fr] gap-12 items-center w-full">
-								<div className="space-y-6">
-									<h1 className="text-8xl font-bold tracking-tighter mb-4">
+						<div className="container mx-auto">
+							<div className="grid md:grid-cols-[3fr_1fr] gap-8 md:gap-12 items-center w-full">
+								<div className="space-y-4 md:space-y-6">
+									<h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-4">
 										run ai in your browser
 									</h1>
-									<p className="text-xl text-muted-foreground mb-4">
+									<p className="text-lg md:text-xl text-muted-foreground mb-4">
 										inspired by the ▲{" "}
 										<a href="https://sdk.vercel.ai" className="text-primary hover:underline">
 											AI SDK
@@ -86,7 +86,7 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 										</a>
 									</p>
 
-									<div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+									<div className="flex flex-wrap items-center gap-3 md:gap-4 text-sm text-muted-foreground">
 										<div className="flex items-center gap-2">
 											<PiggyBank className="w-4 h-4 text-primary" />
 											free
@@ -105,12 +105,12 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 										</div>
 									</div>
 
-									<div className="cyberpunk-corners bg-secondary p-4 inline-block">
-										<div className="install-tabs flex gap-2 mb-3">
+									<div className="cyberpunk-corners bg-secondary p-3 md:p-4 w-full md:w-fit">
+										<div className="install-tabs flex gap-1 md:gap-2 mb-3">
 											{Object.keys(installCommands).map(tab => (
 												<div
 													key={tab}
-													className={`install-tab cursor-pointer px-3 py-1 rounded ${
+													className={`install-tab cursor-pointer px-2 md:px-3 py-1 rounded text-xs md:text-sm ${
 														activeTab === tab ? "bg-primary/20 text-primary" : "hover:bg-primary/10"
 													}`}
 													onClick={() => setActiveTab(tab as PackageManager)}
@@ -123,16 +123,18 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 											<div className="flex items-center gap-2">
 												<button
 													onClick={handleCopy}
-													className="p-2 hover:text-primary transition-colors"
+													className="p-1 md:p-2 hover:text-primary transition-colors"
 													title="Copy to clipboard"
 												>
 													{copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
 												</button>
-												<code className="font-mono w-[180px]">{installCommands[activeTab]}</code>
+												<code className="font-mono text-xs md:text-sm overflow-x-auto whitespace-nowrap">
+													{installCommands[activeTab]}
+												</code>
 											</div>
 											<Link
 												href="/llms.txt"
-												className="group relative px-3 py-2 text-[#0ff] rounded shrink-0 ml-8"
+												className="group relative px-2 md:px-3 py-1 md:py-2 text-[#0ff] rounded shrink-0 ml-4 md:ml-8 text-xs md:text-sm"
 											>
 												<span className="relative z-10">llms.txt</span>
 												<div className="pointer-events-none absolute -inset-[1px] opacity-0 group-hover:opacity-100 animate-border"></div>
@@ -141,8 +143,8 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 									</div>
 								</div>
 
-								<div className="relative flex justify-center">
-									<div className="w-[500px] h-[500px] relative">
+								<div className="relative flex justify-center mt-8 md:mt-0">
+									<div className="w-[280px] h-[280px] md:w-[500px] md:h-[500px] relative">
 										<Image
 											src="https://5xvkmufwzznj1ey2.public.blob.vercel-storage.com/20250202_wandler_head_v2-Ma4f25yqpXRSf32ZnmivUnnV1LGQ69.jpg"
 											alt="AI and Human Integration"
@@ -178,13 +180,13 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 				<DocsSection sampleCode={sampleCode} />
 				*/}
 
-				<RoadmapSection className="h-screen" />
+				<RoadmapSection className="min-h-screen" />
 
 				<DemocratizeBanner />
 			</main>
 
-			<footer className="py-8 border-t border-primary/20">
-				<div className="container mx-auto px-4 text-center text-muted-foreground">
+			<footer className="py-6 md:py-8 border-t border-primary/20">
+				<div className="container mx-auto px-4 text-center text-muted-foreground text-sm md:text-base">
 					<p>generated 2025 by wandler</p>
 				</div>
 			</footer>
