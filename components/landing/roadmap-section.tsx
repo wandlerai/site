@@ -80,7 +80,7 @@ export function RoadmapSection({ className }: RoadmapSectionProps) {
 				{/* Top line pattern */}
 				<div className="absolute top-0 left-2 md:left-4 right-0 h-[30px] md:h-[45px] bg-[repeating-linear-gradient(90deg,theme(colors.primary.DEFAULT),theme(colors.primary.DEFAULT)_10px,transparent_10px,transparent_20px)] md:bg-[repeating-linear-gradient(90deg,theme(colors.primary.DEFAULT),theme(colors.primary.DEFAULT)_15px,transparent_15px,transparent_30px)] opacity-60"></div>
 				<div className="w-full">
-					<h2 className="text-[12vw] md:text-[10vw] text-left font-black mb-0 text-primary tracking-tight uppercase relative container leading-[0.75] bg-transparent pl-4 md:pl-8">
+					<h2 className="text-[12vw] md:text-[10vw] text-left font-black mb-0 text-primary tracking-tight uppercase relative container leading-[0.75] bg-transparent pl-4 md:pl-0">
 						roadmap
 					</h2>
 				</div>
