@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { Play } from "lucide-react";
+import { marked } from "marked";
+import { useRef,useState } from "react";
+import type { BaseModel } from "wandler";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Play } from "lucide-react";
-import type { BaseModel } from "wandler";
-import { marked } from "marked";
 
 interface GettingStartedProps {
 	onRunCode: () => Promise<void>;

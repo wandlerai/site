@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { Check, Copy } from "lucide-react";
+import { useState } from "react";
+
 import { cn } from "@/lib/utils";
 
 interface CopyButtonProps {
@@ -39,6 +40,8 @@ interface CodeBlockProps {
 	className?: string;
 	variant?: "default" | "install";
 	highlightedCode?: string;
+	language?: string;
+	showLineNumbers?: boolean;
 }
 
 export function CodeBlock({
@@ -46,6 +49,7 @@ export function CodeBlock({
 	className,
 	variant = "default",
 	highlightedCode,
+	showLineNumbers,
 }: CodeBlockProps) {
 	if (variant === "install") {
 		return (

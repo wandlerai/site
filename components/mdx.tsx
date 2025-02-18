@@ -1,11 +1,13 @@
-import * as React from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { cn } from "@/lib/utils";
-import { CodeBlockServer } from "@/components/ui/code-block-server";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import * as React from "react";
 import { Suspense } from "react";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+
+import { CodeBlock } from "@/components/ui/code-block";
+import { highlight } from "@/lib/syntax-highlighter";
+import { cn } from "@/lib/utils";
 
 function LoadingFallback() {
 	return (
@@ -20,7 +22,12 @@ function LoadingFallback() {
 }
 
 interface PreProps extends React.ComponentPropsWithoutRef<"pre"> {
-	children?: React.ReactElement;
+	children?: React.ReactElement & {
+		props: {
+			children: string;
+			className?: string;
+		};
+	};
 }
 
 export const components = {
@@ -78,15 +85,18 @@ export const components = {
 			{...props}
 		/>
 	),
-	pre: ({ children, className, ...props }: PreProps) => {
+	pre: async ({ children, className, ...props }: PreProps) => {
 		const code = children?.props?.children || "";
 		const language = children?.props?.className?.replace("language-", "") || "typescript";
 
+		const highlightedCode = await highlight(code, language, true);
+
 		return (
 			<Suspense fallback={<LoadingFallback />}>
-				<CodeBlockServer
+				<CodeBlock
 					code={code}
 					language={language}
+					highlightedCode={highlightedCode}
 					showLineNumbers
 					className={cn("my-6", className)}
 					{...props}

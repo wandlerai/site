@@ -1,30 +1,23 @@
 "use client";
 
+import { Check, Code, Copy, Lock, PiggyBank, Server } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, Copy, Code, Book, Code2, FileCode, Server, PiggyBank, Lock } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import { Header } from "@/components/header";
-import { GettingStarted } from "./getting-started";
-// import { ModelsSection } from "./models-section";
-// import { DocsSection } from "./docs-section";
-import { RoadmapSection } from "./roadmap-section";
-import { ExperimentalBanner } from "./experimental-banner";
+
 import { DemocratizeBanner } from "./democratize-banner";
+import { ExperimentalBanner } from "./experimental-banner";
+import { RoadmapSection } from "./roadmap-section";
 
-interface LandingPageProps {
-	sampleCode: React.ReactNode;
-}
-
-export function LandingPage({ sampleCode }: LandingPageProps) {
+export function LandingPage() {
 	type PackageManager = "npm" | "yarn" | "pnpm";
 	const [activeTab, setActiveTab] = useState<PackageManager>("npm");
 	const [copied, setCopied] = useState(false);
-	const [isRunning, setIsRunning] = useState(false);
 
 	const installCommands: Record<PackageManager, string> = {
-		npm: "npm install wandler",
+		npm: "npm i wandler",
 		yarn: "yarn add wandler",
 		pnpm: "pnpm add wandler",
 	};
@@ -33,30 +26,6 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 		await navigator.clipboard.writeText(installCommands[activeTab]);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 2000);
-	};
-
-	const handleRunCode = async () => {
-		setIsRunning(true);
-		try {
-			const { loadModel, streamText } = await import("wandler");
-			const loadedModel = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX");
-
-			const result = await streamText({
-				model: loadedModel,
-				messages: [{ role: "user", content: "Hello! How are you?" }],
-			});
-
-			let response = "";
-			for await (const token of result) {
-				response += token;
-			}
-
-			console.log("Code execution result:", response);
-		} catch (error) {
-			console.error("Error:", error);
-		} finally {
-			setIsRunning(false);
-		}
 	};
 
 	return (
@@ -161,24 +130,6 @@ export function LandingPage({ sampleCode }: LandingPageProps) {
 
 					<ExperimentalBanner className="rotate-2" />
 				</section>
-
-				{/* 
-				<div className="container mx-auto px-4 relative z-10">
-					<div className="grid md:grid-cols-2 gap-8">
-						<div className="space-y-4">
-							<div className="cyberpunk-corners bg-secondary p-6">{sampleCode}</div>
-						</div>
-					</div>
-				</div> */}
-				{/* <GettingStarted onRunCode={handleRunCode} isRunning={isRunning} /> */}
-
-				{/* Models section temporarily removed
-				<ModelsSection />
-				*/}
-
-				{/* Docs section temporarily removed 
-				<DocsSection sampleCode={sampleCode} />
-				*/}
 
 				<RoadmapSection className="min-h-screen" />
 

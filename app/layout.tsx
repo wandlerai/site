@@ -1,7 +1,9 @@
 import "./globals.css";
+
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import type React from "react";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 

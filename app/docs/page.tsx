@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import { join } from "path";
+
 import { getMdxContent } from "@/lib/mdx";
 
 export default async function DocsPage() {

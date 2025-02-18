@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Book, Code, Code2, FileCode } from "lucide-react";
+import Link from "next/link";
 
 interface DocsSectionProps {
 	sampleCode: React.ReactNode;

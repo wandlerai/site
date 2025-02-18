@@ -1,8 +1,9 @@
 "use client";
 
+import { AudioWaveform,ImageIcon, Search, SlidersHorizontal, TextIcon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search, SlidersHorizontal, TextIcon, ImageIcon, AudioWaveform } from "lucide-react";
 
 export function ModelsSection() {
 	return (

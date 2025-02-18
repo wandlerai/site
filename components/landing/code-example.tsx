@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+
 import { CodeBlockServer } from "@/components/ui/code-block-server";
 
 interface CodeExampleProps {

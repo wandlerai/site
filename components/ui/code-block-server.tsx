@@ -1,5 +1,7 @@
 import { cache } from "react";
+
 import { highlight } from "@/lib/syntax-highlighter";
+
 import { CodeBlock } from "./code-block";
 
 interface CodeBlockServerProps {
