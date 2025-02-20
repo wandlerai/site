@@ -45,7 +45,7 @@ const roadmapItems: RoadmapItem[] = [
 	},
 	{
 		title: "chat demo",
-		status: "upcoming",
+		status: "current",
 		description: "simple chat ui leveraging useChat",
 	},
 	{
