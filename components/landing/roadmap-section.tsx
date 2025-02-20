@@ -35,12 +35,12 @@ const roadmapItems: RoadmapItem[] = [
 	},
 	{
 		title: "e2e tests",
-		status: "current",
+		status: "done",
 		description: "comprehensive testing suite for all features",
 	},
 	{
 		title: "useChat",
-		status: "upcoming",
+		status: "current",
 		description: "react hooks for chat interfaces",
 	},
 	{
