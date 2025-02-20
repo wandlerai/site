@@ -87,7 +87,7 @@ export function RoadmapSection({ className }: RoadmapSectionProps) {
 				</div>
 			</div>
 
-			<div className="min-h-[70vh] md:h-[50vh] w-full relative z-10 border-l-[50px] md:border-l-[300px] border-secondary/40 overflow-y-auto">
+			<div className="min-h-[70vh] w-full relative z-10 border-l-[50px] md:border-l-[300px] border-secondary/40">
 				<div className="py-4 md:py-8 px-2 md:px-4">
 					<div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 md:gap-12">
 						{roadmapItems.map((item, index) => (
