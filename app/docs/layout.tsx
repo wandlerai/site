@@ -8,28 +8,33 @@ import { cn } from "@/lib/utils";
 
 const sidebarItems = [
 	{
-		title: "Getting Started",
+		title: "docs",
 		items: [
 			{
-				title: "Introduction",
-				href: "/docs",
+				title: "install",
+				href: "/docs#install",
 			},
 			{
-				title: "Installation",
-				href: "/docs/installation",
-			},
-		],
-	},
-	{
-		title: "Core Concepts",
-		items: [
-			{
-				title: "Models",
-				href: "/docs/models",
+				title: "hello, world!",
+				href: "/docs#hello-world",
 			},
 			{
-				title: "WebGPU",
-				href: "/docs/webgpu",
+				title: "core functions",
+				href: "/docs#core-functions",
+				items: [
+					{
+						title: "loadModel",
+						href: "/docs#loadmodel",
+					},
+					{
+						title: "generateText",
+						href: "/docs#generatetext",
+					},
+					{
+						title: "streamText",
+						href: "/docs#streamtext",
+					},
+				],
 			},
 		],
 	},
@@ -80,6 +85,25 @@ function Sidebar() {
 										>
 											{item.title}
 										</Link>
+										{item.items && (
+											<ul className="ml-4 mt-2 space-y-1 border-l border-primary/20">
+												{item.items.map((subItem, k) => (
+													<li key={k}>
+														<Link
+															href={subItem.href}
+															className={cn(
+																"block py-1 text-sm transition-colors hover:text-primary",
+																pathname === subItem.href
+																	? "text-primary font-medium"
+																	: "text-muted-foreground"
+															)}
+														>
+															{subItem.title}
+														</Link>
+													</li>
+												))}
+											</ul>
+										)}
 									</li>
 								))}
 							</ul>

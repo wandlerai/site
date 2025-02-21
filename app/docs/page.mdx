@@ -1,58 +1,170 @@
-# Introduction to Wandler
+## install
 
-Welcome to Wandler, a powerful JavaScript library that enables you to run AI models directly in your
-browser. With Wandler, you can leverage the power of machine learning without compromising on
-privacy or performance.
+```bash
+npm i wandler
 
-## What is Wandler?
+# or
+yarn add wandler
 
-Wandler is an open-source library built on top of transformers.js that makes it easy to run AI
-models in the browser using WebGPU. It provides a simple, intuitive API for working with various
-types of models:
-
-- Text Generation
-- Image Classification
-- Speech Recognition
-- Object Detection
-- And more...
-
-## Example Usage
-
-Here's a simple example of how to use Wandler:
-
-```typescript
-import { Wandler } from "wandler";
-
-// Load a text generation model
-const model = await Wandler.load("gpt2-small");
-
-// Generate text
-const output = await model.generate("The future of AI is");
-console.log(output);
-// => "The future of AI is bright and full of possibilities..."
+# or
+pnpm add wandler
 ```
 
-## Key Features
+## hello, world!
 
-### Privacy First
+let's get a simple text generation example running. this will demonstrate the core functionality of
+wandler.
 
-All processing happens locally in your browser. Your data never leaves your device, ensuring
-complete privacy and data security.
+```typescript
+import { loadModel, generateText } from "wandler";
 
-### High Performance
+// 1. Load a model
+const model = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX");
 
-Wandler is optimized for WebGPU, delivering near-native performance for AI inference directly in the
-browser.
+// 2. Generate text
+const result = await generateText({
+	model,
+	messages: [{ role: "user", content: "Hello, Wandler!" }],
+});
 
-### Easy to Use
+// 3. Output the result
+console.log(result.text);
+```
 
-Simple, intuitive API that makes it easy to integrate AI capabilities into your web applications.
+1.  **`loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX")`**: this line loads the
+    [onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX](https://huggingface.co/onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX)
+    model from the hugging face. wandler automatically downloads and prepares the model for
+    browser-based inference.
+2.  **`generateText({...})`**: this function takes a model and a set of messages (representing a
+    conversation) and generates a text response. it's the simplest way to get a single text output
+    from a model.
+3.  **`console.log(result.text)`**: this line prints the generated text to the console.
 
-### Open Source
+## core functions
 
-Fully open source and free to use. Built by the community, for the community.
+wandler revolves around three core functions: `loadModel`, `generateText`, and `streamText`
 
-## Getting Started
+lets take a look at each of them.
 
-Ready to start using Wandler? Check out our [Installation Guide](/docs/installation) to get up and
-running in minutes.
+### loadModel
+
+`loadModel(modelPath: string, options?: ModelOptions)`
+
+- **purpose:** loads a pre-trained model from the hugging face model hub or a local path.
+- **`modelPath`**: the path to the model. this is typically a string like
+  `"onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX"` (for a hugging face hub model) or a local
+  file path.
+- **`options`**: an optional object to configure model loading. key options include:
+  - `device`: `"webgpu"` (default if available), `"wasm"`, `"cpu"`. specifies the device to use for
+    inference. `"webgpu"` is generally the fastest.
+  - `dtype`: `"q4f16"` (default), `"q4"`, `"fp16"`. specifies the data type to use for the model.
+    `"q4f16"` is a good balance of speed and accuracy.
+  - `onProgress`: a callback function to track the model loading progress.
+  - `useWorker`: `true` (default), `false`. whether to load the model in a web worker.
+- **returns:** a `BaseModel` object, which contains the loaded model, tokenizer, and configuration.
+
+#### example: progress tracking
+
+```typescript
+import { loadModel } from "wandler";
+
+const model = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX", {
+	onProgress: info => {
+		if (info.status === "progress") {
+			console.log(`Loading: ${info.loaded}/${info.total} bytes`);
+		}
+	},
+});
+console.log("Model loaded!");
+```
+
+### generateText
+
+`generateText(options: NonStreamingGenerationOptions)`
+
+- **purpose:** generates a single text response from a language model.
+- **`options`**: an object containing the generation configuration. key options include:
+  - `model`: the `BaseModel` object returned by `loadModel`.
+  - `messages`: an array of `Message` objects representing the conversation history. each `Message`
+    has a `role` (`"user"`, `"assistant"`, `"system"`) and `content`.
+  - `prompt`: a single prompt string (alternative to `messages`).
+  - `maxTokens`: the maximum number of tokens to generate.
+  - `temperature`: sampling temperature (higher values = more creative, lower values = more
+    predictable).
+  - `topP`: nucleus sampling parameter.
+- **returns:** a `GenerationResult` object, which contains the generated text, reasoning (if
+  available), and usage statistics.
+
+#### example: system message & temperature
+
+```typescript
+import { loadModel, generateText } from "wandler";
+
+const model = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX");
+const result = await generateText({
+	model,
+	system: "You are a helpful assistant.",
+	messages: [{ role: "user", content: "What is the capital of France?" }],
+	temperature: 0.7,
+});
+console.log(result.text);
+```
+
+### streamText
+
+`streamText(options: StreamingGenerationOptions)`
+
+- **purpose:** generates text in streaming mode, allowing for real-time updates. this is ideal for
+  chat applications or scenarios where you want to display the output as it's being generated.
+- **`options`**: an object containing the streaming generation configuration. extends
+  `NonStreamingGenerationOptions` with additional options:
+  - `onChunk`: a callback function that is called with each chunk of generated text.
+- **returns:** a `StreamTextResult` object, which contains:
+  - `textStream`: a `ReadableStream` that yields text chunks.
+  - `fullStream`: a `ReadableStream` that yields structured events (text deltas, reasoning,
+    sources).
+  - `result`: a `Promise` that resolves to the final `GenerationResult`.
+
+#### example: streaming output
+
+```typescript
+import { loadModel, streamText } from "wandler";
+
+const model = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX");
+const { textStream } = await streamText({
+	model,
+	messages: [{ role: "user", content: "Tell me a short story." }],
+});
+
+const decoder = new TextDecoder();
+for await (const chunk of textStream) {
+	console.log("Chunk:", decoder.decode(chunk));
+}
+```
+
+#### example: using `onChunk` with `fullStream`
+
+```typescript
+import { loadModel, streamText } from "wandler";
+
+const model = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX");
+const { fullStream } = await streamText({
+	model,
+	messages: [{ role: "user", content: "Explain the theory of relativity." }],
+	onChunk: chunk => {
+		if (chunk.type === "text-delta") {
+			console.log("Text Chunk (onChunk):", chunk.text);
+		} else if (chunk.type === "reasoning") {
+			console.log("Reasoning (onChunk):", chunk.text);
+		}
+	},
+});
+
+for await (const event of fullStream) {
+	if (event.type === "text-delta") {
+		console.log("Text Chunk (fullStream):", event.textDelta);
+	} else if (event.type === "reasoning") {
+		console.log("Reasoning (fullStream):", event.textDelta);
+	}
+}
+```
