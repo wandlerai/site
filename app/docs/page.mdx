@@ -116,8 +116,7 @@ console.log(result.text);
 
 - **purpose:** generates text in streaming mode, allowing for real-time updates. this is ideal for
   chat applications or scenarios where you want to display the output as it's being generated.
-- **`options`**: an object containing the streaming generation configuration. extends
-  `NonStreamingGenerationOptions` with additional options:
+- **`options`**: an object containing the streaming generation configuration:
   - `onChunk`: a callback function that is called with each chunk of generated text.
 - **returns:** a `StreamTextResult` object, which contains:
   - `textStream`: a `ReadableStream` that yields text chunks.
