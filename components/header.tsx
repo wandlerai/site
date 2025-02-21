@@ -39,6 +39,12 @@ export function Header() {
 				<nav className="hidden md:block">
 					<div className="cyberpunk-nav">
 						<Link
+							href="/docs"
+							className="cyberpunk-nav-item text-white hover:text-primary transition-colors"
+						>
+							Docs
+						</Link>
+						<Link
 							href="https://github.com/wandlerai"
 							className="cyberpunk-nav-item flex items-center"
 							target="_blank"
@@ -89,6 +95,9 @@ export function Header() {
 						<nav className="container mx-auto py-4 px-4">
 							{/* Social icons row */}
 							<div className="flex justify-center gap-6">
+								<Link href="/docs" className="p-2 text-white hover:text-primary transition-colors">
+									Docs
+								</Link>
 								<Link
 									href="https://github.com/wandlerai"
 									className="p-2 text-white hover:text-primary transition-colors"
