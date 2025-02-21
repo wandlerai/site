@@ -50,7 +50,9 @@ lets take a look at each of them.
 
 `loadModel(modelPath: string, options?: ModelOptions)`
 
-- **purpose:** loads a pre-trained model from the hugging face model hub or a local path.
+- **purpose:** loads a pre-trained model from the hugging face model hub once and then stores it
+  into the local cache of your browser. this allows for faster inference when the same model is
+  requested multiple times.
 - **`modelPath`**: the path to the model. this is typically a string like
   `"onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX"` (for a hugging face hub model) or a local
   file path.
