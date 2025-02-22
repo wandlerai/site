@@ -71,6 +71,15 @@
 	border-top: 0;
 }
 
+.cyberpunk-code {
+  width: 100vw;
+  @media (min-width: 640px) {
+    width: auto;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+}
+
 .button-cyber {
 	@apply relative px-8 py-2 bg-black text-primary border-2 border-primary
          uppercase tracking-wider font-bold hover:bg-primary/10 

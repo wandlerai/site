@@ -49,6 +49,7 @@ export function CodeBlock({
 	className,
 	variant = "default",
 	highlightedCode,
+	language,
 	showLineNumbers,
 }: CodeBlockProps) {
 	if (variant === "install") {
@@ -68,9 +69,9 @@ export function CodeBlock({
 	}
 
 	return (
-		<div className={cn("relative group", className)}>
+		<div className={cn("relative group cyberpunk-code", className)}>
 			<CopyButton code={code} />
-			<div className="cyberpunk-corners bg-black/50 p-4 border border-primary/50">
+			<div className="cyberpunk-corners bg-black/50 p-2 sm:p-4 border border-primary/50">
 				{highlightedCode ? (
 					<div
 						className="[&_pre]:!bg-transparent [&_pre]:!p-0 text-primary font-mono text-sm overflow-x-auto [&_pre]:overflow-y-auto"

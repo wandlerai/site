@@ -40,33 +40,12 @@ const sidebarItems = [
 	},
 ];
 
-export default function DocsLayout({ children }: { children: React.ReactNode }) {
-	return (
-		<div className="flex flex-col min-h-screen bg-black text-white">
-			<Header />
-
-			{/* Main content */}
-			<div className="container mx-auto">
-				<div className="flex pt-16">
-					{/* Sidebar */}
-					<Sidebar />
-
-					{/* Main content */}
-					<main className="flex-1 ml-64">
-						<div className="max-w-3xl py-12 px-6">{children}</div>
-					</main>
-				</div>
-			</div>
-		</div>
-	);
-}
-
 function Sidebar() {
 	const pathname = usePathname();
 
 	return (
-		<aside className="w-64 border-r border-primary/20 bg-black fixed h-[calc(100vh-4rem)] top-16">
-			<div className="overflow-y-auto h-full p-6">
+		<aside className="w-48 border-r border-primary/20 bg-black lg:fixed h-[calc(100vh-4rem)] lg:top-16">
+			<div className="overflow-y-auto h-full p-4">
 				<nav className="space-y-8">
 					{sidebarItems.map((section, i) => (
 						<div key={i}>
@@ -112,5 +91,28 @@ function Sidebar() {
 				</nav>
 			</div>
 		</aside>
+	);
+}
+
+export default function DocsLayout({ children }: { children: React.ReactNode }) {
+	return (
+		<div className="flex flex-col min-h-screen bg-black text-white">
+			<Header />
+
+			{/* Main content */}
+			<div className="container mx-auto">
+				<div className="flex pt-16">
+					{/* Desktop Sidebar */}
+					<div className="hidden lg:block">
+						<Sidebar />
+					</div>
+
+					{/* Main content */}
+					<main className="flex-1 lg:ml-48">
+						<div className="max-w-3xl py-12">{children}</div>
+					</main>
+				</div>
+			</div>
+		</div>
 	);
 }

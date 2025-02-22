@@ -27,3 +27,22 @@
 	background-size: 100% 4px;
 	animation: scanline 4s linear infinite;
 }
+
+pre {
+  overflow-x: auto !important;
+  white-space: pre !important;
+  max-width: 100% !important;
+  -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+}
+
+pre code {
+  display: inline-block !important;
+  min-width: 100% !important;
+}
+
+/* Ensure inline code also breaks */
+:not(pre) > code {
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+}

@@ -14,6 +14,7 @@ export function Header() {
 	const pathname = usePathname();
 
 	const isDocsActive = pathname?.startsWith("/docs");
+	const showDocsSidebar = isDocsActive;
 
 	return (
 		<header
@@ -53,7 +54,9 @@ export function Header() {
 					<div className="cyberpunk-nav">
 						<Link
 							href="/docs"
-							className={`cyberpunk-nav-item ${isDocsActive ? "text-primary" : "text-white"}`}
+							className={`cyberpunk-nav-item ${
+								isDocsActive ? "bg-primary/20 text-primary" : "text-white"
+							}`}
 						>
 							Docs
 						</Link>
@@ -110,7 +113,7 @@ export function Header() {
 							<div className="flex justify-center gap-6">
 								<Link
 									href="/docs"
-									className={`p-2 ${isDocsActive ? "text-primary" : "text-white"}`}
+									className={`p-2 ${isDocsActive ? "bg-primary/20 text-primary" : "text-white"}`}
 								>
 									Docs
 								</Link>

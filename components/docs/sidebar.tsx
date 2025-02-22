@@ -38,8 +38,8 @@ export function Sidebar() {
 	const pathname = usePathname();
 
 	return (
-		<aside className="w-64 border-r border-primary/20 bg-black fixed h-[calc(100vh-4rem)] top-16">
-			<div className="overflow-y-auto h-full p-6">
+		<aside className="w-48 border-r border-primary/20 bg-black lg:fixed h-[calc(100vh-4rem)] lg:top-16">
+			<div className="overflow-y-auto h-full p-4">
 				<nav className="space-y-8">
 					{sidebarItems.map((section, i) => (
 						<div key={i}>
