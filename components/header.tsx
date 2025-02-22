@@ -3,6 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 // TODO: Import this from package.json once we have a proper way to share version
@@ -10,6 +11,9 @@ const VERSION = "1.0.0-alpha.2";
 
 export function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const pathname = usePathname();
+
+	const isDocsActive = pathname?.startsWith("/docs");
 
 	return (
 		<header
@@ -49,7 +53,7 @@ export function Header() {
 					<div className="cyberpunk-nav">
 						<Link
 							href="/docs"
-							className="cyberpunk-nav-item text-white hover:text-primary transition-colors"
+							className={`cyberpunk-nav-item ${isDocsActive ? "text-primary" : "text-white"}`}
 						>
 							Docs
 						</Link>
@@ -104,7 +108,10 @@ export function Header() {
 						<nav className="container mx-auto py-4 px-4">
 							{/* Social icons row */}
 							<div className="flex justify-center gap-6">
-								<Link href="/docs" className="p-2 text-white hover:text-primary transition-colors">
+								<Link
+									href="/docs"
+									className={`p-2 ${isDocsActive ? "text-primary" : "text-white"}`}
+								>
 									Docs
 								</Link>
 								<Link
