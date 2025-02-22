@@ -6,7 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface CopyButtonProps {
-	code: string;
+	code: string; 
 }
 
 function CopyButton({ code }: CopyButtonProps) {
@@ -49,8 +49,6 @@ export function CodeBlock({
 	className,
 	variant = "default",
 	highlightedCode,
-	language,
-	showLineNumbers,
 }: CodeBlockProps) {
 	if (variant === "install") {
 		return (

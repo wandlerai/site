@@ -2,6 +2,7 @@ import { createHighlighter } from "shiki";
 
 let highlighter: Awaited<ReturnType<typeof createHighlighter>>;
 
+// eslint-disable-next-line unused-imports/no-unused-vars
 export async function highlight(code: string, lang: string, showLineNumbers = false) {
 	if (!highlighter) {
 		highlighter = await createHighlighter({

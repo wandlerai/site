@@ -48,13 +48,19 @@ export const components = {
 	),
 	h3: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
 		<h3
-			className={cn("mt-8 scroll-m-20 text-2xl font-semibold tracking-tight px-4 sm:px-6", className)}
+			className={cn(
+				"mt-8 scroll-m-20 text-2xl font-semibold tracking-tight px-4 sm:px-6",
+				className
+			)}
 			{...props}
 		/>
 	),
 	h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
 		<h4
-			className={cn("mt-8 scroll-m-20 text-xl font-semibold tracking-tight px-4 sm:px-6", className)}
+			className={cn(
+				"mt-8 scroll-m-20 text-xl font-semibold tracking-tight px-4 sm:px-6",
+				className
+			)}
 			{...props}
 		/>
 	),

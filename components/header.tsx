@@ -14,7 +14,6 @@ export function Header() {
 	const pathname = usePathname();
 
 	const isDocsActive = pathname?.startsWith("/docs");
-	const showDocsSidebar = isDocsActive;
 
 	return (
 		<header
