@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+// TODO: Import this from package.json once we have a proper way to share version
+const VERSION = "1.0.0-alpha.2";
+
 export function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,7 +17,7 @@ export function Header() {
 			style={{ backgroundColor: "#14171203" }}
 		>
 			<div className="container mx-auto flex justify-between items-center h-16 px-4">
-				<div className="flex items-center">
+				<div className="flex items-center gap-4">
 					<Link href="/">
 						<Image
 							src="https://5xvkmufwzznj1ey2.public.blob.vercel-storage.com/wandler_logo_v5-vJ2L3NmauebkFJs9fOcFe7bPVM14To.svg"
@@ -24,6 +27,12 @@ export function Header() {
 							className="brightness-100"
 						/>
 					</Link>
+					<div className="hidden sm:block relative group">
+						<span className="px-2 py-1 text-xs font-mono bg-primary/5 text-primary/50 border border-primary/20 rounded-md transition-all duration-300 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/50">
+							v{VERSION}
+						</span>
+						<div className="absolute inset-0 bg-primary/10 blur-xl rounded-full opacity-25 transition-opacity duration-300 group-hover:opacity-100"></div>
+					</div>
 				</div>
 
 				{/* Mobile menu button */}
