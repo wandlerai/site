@@ -1,7 +1,7 @@
 # wandler
 
 run ai in your browser	
-Version: 1.0.0-alpha.2
+Version: 1.0.0-alpha.4
 Last updated: 2025-02-22
 
 wandler is a ts library that lets you run ai models directly in your browser using transformers.js with an api inspired by the AISDK.
