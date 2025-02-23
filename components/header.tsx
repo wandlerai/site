@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 // TODO: Import this from package.json once we have a proper way to share version
-const VERSION = "1.0.0-alpha.2";
+const VERSION = "1.0.0-alpha.4";
 
 export function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,10 +32,14 @@ export function Header() {
 						/>
 					</Link>
 					<div className="hidden sm:block relative group">
-						<span className="px-2 py-1 text-xs font-mono bg-primary/5 text-primary/50 border border-primary/20 rounded-md transition-all duration-300 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/50">
+						<Link
+							href="https://www.npmjs.com/package/wandler"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="px-2 py-1 text-xs font-mono bg-primary/5 text-primary/50 border border-primary/20 rounded-md transition-all duration-300 group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/50"
+						>
 							v{VERSION}
-						</span>
-						<div className="absolute inset-0 bg-primary/10 blur-xl rounded-full opacity-25 transition-opacity duration-300 group-hover:opacity-100"></div>
+						</Link>
 					</div>
 				</div>
 
