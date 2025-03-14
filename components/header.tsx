@@ -6,14 +6,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-// TODO: Import this from package.json once we have a proper way to share version
-const VERSION = "1.0.0-alpha.4";
+// Import version from utility file
+import { PACKAGE_VERSION } from "@/lib/version";
+
+// Use the version from the utility
+const VERSION = PACKAGE_VERSION;
 
 export function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const pathname = usePathname();
 
 	const isDocsActive = pathname?.startsWith("/docs");
+	const isHubActive = pathname?.startsWith("/hub");
 
 	return (
 		<header
@@ -55,6 +59,15 @@ export function Header() {
 				{/* Desktop navigation */}
 				<nav className="hidden md:block">
 					<div className="cyberpunk-nav">
+						{/* Hub link - first in navigation */}
+						<Link
+							href="/hub"
+							className={`cyberpunk-nav-item ${
+								isHubActive ? "bg-primary/20 text-primary" : "text-white"
+							}`}
+						>
+							Hub
+						</Link>
 						<Link
 							href="/docs"
 							className={`cyberpunk-nav-item ${
@@ -114,6 +127,13 @@ export function Header() {
 						<nav className="container mx-auto py-4 px-4">
 							{/* Social icons row */}
 							<div className="flex justify-center gap-6">
+								{/* Hub link - first in mobile navigation */}
+								<Link
+									href="/hub"
+									className={`p-2 ${isHubActive ? "bg-primary/20 text-primary" : "text-white"}`}
+								>
+									Hub
+								</Link>
 								<Link
 									href="/docs"
 									className={`p-2 ${isDocsActive ? "bg-primary/20 text-primary" : "text-white"}`}

@@ -3,6 +3,7 @@ Tailwind.
 
 ## Core Conventions
 
+- never start the dev server, it is already running
 - Focus on providing solutions without unnecessary explanations or apologies. Address issues
   directly and efficiently.
 - Use functional programming principles; avoid classes and duplication.

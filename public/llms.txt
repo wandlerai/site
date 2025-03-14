@@ -1,10 +1,10 @@
 # wandler
 
 run ai in your browser	
-Version: 1.0.0-alpha.4
-Last updated: 2025-02-22
+Version: 1.0.0-alpha.11
+Last updated: 2025-03-14
 
-wandler is a ts library that lets you run ai models directly in your browser using transformers.js with an api inspired by the AISDK.
+wandler is a ts library that lets you run ai models directly in your browser using huggingface transformers.js with an api inspired by the Vercel AI SDK.
 everything runs locally, is free, private and open-source.  
 
 ## install
@@ -21,7 +21,7 @@ pnpm add wandler
 
 ## hello, world!
 
-let's get a simple text generation example running. this will demonstrate the core functionality of
+let's get a basic text generation example running. this will demonstrate the core functionality of
 wandler.
 
 ```typescript
@@ -49,7 +49,7 @@ console.log(result.text);
     from a model.
 3.  **`console.log(result.text)`**: this line prints the generated text to the console.
 
-## core functions
+## wandler core
 
 wandler revolves around three core functions: `loadModel`, `generateText`, and `streamText`
 
@@ -74,7 +74,7 @@ lets take a look at each of them.
   - `useWorker`: `true` (default), `false`. whether to load the model in a web worker.
 - **returns:** a `BaseModel` object, which contains the loaded model, tokenizer, and configuration.
 
-#### example: progress tracking
+#### progress tracking
 
 ```typescript
 import { loadModel } from "wandler";
@@ -86,7 +86,6 @@ const model = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX
 		}
 	},
 });
-console.log("Model loaded!");
 ```
 
 ### generateText
@@ -98,6 +97,7 @@ console.log("Model loaded!");
   - `model`: the `BaseModel` object returned by `loadModel`.
   - `messages`: an array of `Message` objects representing the conversation history. each `Message`
     has a `role` (`"user"`, `"assistant"`, `"system"`) and `content`.
+  - `system`: a system message to guide the model's behavior.
   - `prompt`: a single prompt string (alternative to `messages`).
   - `maxTokens`: the maximum number of tokens to generate.
   - `temperature`: sampling temperature (higher values = more creative, lower values = more
@@ -106,7 +106,7 @@ console.log("Model loaded!");
 - **returns:** a `GenerationResult` object, which contains the generated text, reasoning (if
   available), and usage statistics.
 
-#### example: system message & temperature
+#### system message & temperature
 
 ```typescript
 import { loadModel, generateText } from "wandler";
@@ -135,7 +135,7 @@ console.log(result.text);
     sources).
   - `result`: a `Promise` that resolves to the final `GenerationResult`.
 
-#### example: streaming output
+#### streaming output
 
 ```typescript
 import { loadModel, streamText } from "wandler";
@@ -152,7 +152,7 @@ for await (const chunk of textStream) {
 }
 ```
 
-#### example: using `onChunk` with `fullStream`
+#### using `onChunk` with `fullStream`
 
 ```typescript
 import { loadModel, streamText } from "wandler";
@@ -176,5 +176,115 @@ for await (const event of fullStream) {
 	} else if (event.type === "reasoning") {
 		console.log("Reasoning (fullStream):", event.textDelta);
 	}
+}
+```
+
+## react
+
+### install react package
+
+```bash
+npm i wandler @wandler/react
+
+# or
+yarn add wandler @wandler/react
+
+# or
+pnpm add wandler @wandler/react
+```
+
+### useChat
+
+`useChat(options: UseChatOptions): UseChatHelpers`
+
+- **purpose:** provides a complete chat interface state management solution for react applications.
+  it handles message history, streaming responses, loading states, and error handling.
+- **`options`**: an object containing the chat configuration:
+  - `model`: the `BaseModel` object returned by `loadModel`.
+  - `initialMessages`: optional array of messages to pre-populate the chat.
+  - `initialInput`: optional initial value for the input field.
+  - `onError`: callback function when an error occurs.
+  - `onFinish`: callback function when generation finishes.
+  - `abortOnUnmount`: whether to abort the request when the component unmounts (default: `true`).
+  - `generationOptions`: additional options for text generation (temperature, maxTokens, etc.).
+- **returns:** a `UseChatHelpers` object with methods and state for building a chat interface:
+  - `messages`: array of current messages in the chat.
+  - `input`: current input value.
+  - `handleInputChange`: function to handle input changes.
+  - `handleSubmit`: function to handle form submission.
+  - `isLoading`: boolean indicating if a request is in progress.
+  - `error`: error object if an error occurred.
+  - `status`: current status of the chat ("idle", "loading", "streaming", "error").
+  - `stop`: function to stop the AI response.
+  - `clearMessages`: function to clear all messages.
+  - `addMessage`: function to add a message to the chat.
+  - `addMessagePart`: function to add a part to the last assistant message.
+
+#### basic chat interface
+
+```tsx
+import { useState, useEffect } from "react";
+import { loadModel } from "wandler";
+import { useChat } from "@wandler/react";
+
+function ChatComponent() {
+	const [model, setModel] = useState(null);
+
+	// Load the model on component mount
+	useEffect(() => {
+		async function loadModelAsync() {
+			const loadedModel = await loadModel("onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX");
+			setModel(loadedModel);
+		}
+		loadModelAsync();
+	}, []);
+
+	// Initialize the chat hook
+	const { messages, input, handleInputChange, handleSubmit, isLoading, status } = useChat({
+		model,
+		initialMessages: [{ role: "system", content: "You are a helpful assistant." }],
+		generationOptions: {
+			temperature: 0.7,
+			maxTokens: 1000,
+		},
+	});
+
+	if (!model) return <div>Loading model...</div>;
+
+	return (
+		<div className="chat-container">
+			<div className="messages">
+				{messages.map(message => (
+					<div key={message.id} className={`message ${message.role}`}>
+						{message.content}
+
+						{/* Display reasoning if available */}
+						{message.parts?.map((part, index) =>
+							part.type === "reasoning" ? (
+								<div key={index} className="reasoning">
+									<h4>Reasoning:</h4>
+									<p>{part.reasoning}</p>
+								</div>
+							) : null
+						)}
+					</div>
+				))}
+
+				{status === "streaming" && <div className="loading-indicator">AI is typing...</div>}
+			</div>
+
+			<form onSubmit={handleSubmit}>
+				<input
+					value={input}
+					onChange={handleInputChange}
+					placeholder="Ask something..."
+					disabled={isLoading}
+				/>
+				<button type="submit" disabled={isLoading || !input.trim()}>
+					Send
+				</button>
+			</form>
+		</div>
+	);
 }
 ```

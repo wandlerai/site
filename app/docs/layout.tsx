@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const sidebarItems = [
 	{
-		title: "docs",
+		title: "get started",
 		items: [
 			{
 				title: "install",
@@ -18,23 +18,35 @@ const sidebarItems = [
 				title: "hello, world!",
 				href: "/docs#hello-world",
 			},
+		],
+	},
+	{
+		title: "wandler",
+		items: [
 			{
-				title: "core functions",
-				href: "/docs#core-functions",
-				items: [
-					{
-						title: "loadModel",
-						href: "/docs#loadmodel",
-					},
-					{
-						title: "generateText",
-						href: "/docs#generatetext",
-					},
-					{
-						title: "streamText",
-						href: "/docs#streamtext",
-					},
-				],
+				title: "loadModel",
+				href: "/docs#loadmodel",
+			},
+			{
+				title: "generateText",
+				href: "/docs#generatetext",
+			},
+			{
+				title: "streamText",
+				href: "/docs#streamtext",
+			},
+		],
+	},
+	{
+		title: "react",
+		items: [
+			{
+				title: "install",
+				href: "/docs#install-react-package",
+			},
+			{
+				title: "useChat",
+				href: "/docs#usechat",
 			},
 		],
 	},

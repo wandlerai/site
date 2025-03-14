@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { Header } from "@/components/header";
+import { HubSection } from "@/components/landing/hub-section";
 
 import { DemocratizeBanner } from "./democratize-banner";
 import { ExperimentalBanner } from "./experimental-banner";
@@ -128,7 +129,9 @@ export function LandingPage() {
 					<ExperimentalBanner className="rotate-2" />
 				</section>
 
-				<RoadmapSection className="min-h-screen" />
+				<HubSection />
+
+				<RoadmapSection />
 
 				<DemocratizeBanner />
 			</main>
