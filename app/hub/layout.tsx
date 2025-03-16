@@ -1,12 +1,8 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import { Header } from "@/components/header";
 
 export default function HubLayout({ children }: { children: React.ReactNode }) {
-	const pathname = usePathname();
-
 	return (
 		<div className="flex flex-col min-h-screen bg-black text-white">
 			<Header />

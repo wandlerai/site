@@ -6,7 +6,24 @@ import { usePathname } from "next/navigation";
 import { Header } from "@/components/header";
 import { cn } from "@/lib/utils";
 
-const sidebarItems = [
+// Define interfaces for the sidebar items
+interface SubItem {
+	title: string;
+	href: string;
+}
+
+interface SidebarItem {
+	title: string;
+	href?: string;
+	items?: SubItem[];
+}
+
+interface SidebarSection {
+	title: string;
+	items: SidebarItem[];
+}
+
+const sidebarItems: SidebarSection[] = [
 	{
 		title: "get started",
 		items: [
@@ -66,7 +83,7 @@ function Sidebar() {
 								{section.items.map((item, j) => (
 									<li key={j}>
 										<Link
-											href={item.href}
+											href={item.href || "#"}
 											className={cn(
 												"block py-1.5 text-sm transition-colors hover:text-primary",
 												pathname === item.href

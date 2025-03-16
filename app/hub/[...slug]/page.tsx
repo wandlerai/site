@@ -62,11 +62,8 @@ export default function HubDemoPage({ params }: HubDemoPageProps): React.ReactEl
 	// Get models that can be used for chat
 	const chatModels = getModelsByCapability("text");
 
-	// Determine the page title and description
+	// Determine the page title
 	const pageTitle = isDemoPage ? "Chat" : currentModel.humanReadableName;
-	const pageDescription = isDemoPage
-		? "Chat with AI models running directly in your browser."
-		: currentModel.description;
 
 	return (
 		<div className="space-y-8">

@@ -10,13 +10,6 @@ import { loadModel } from "wandler";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 
 // Available models for the selector
 const AVAILABLE_MODELS = [
@@ -216,6 +209,8 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 	const [isModelLoading, setIsModelLoading] = useState(false);
 	const [loadingProgress, setLoadingProgress] = useState({ loaded: 0, total: 0 });
 	const [error, setError] = useState<string | null>(null);
+	const [status, setStatus] = useState("Model not loaded");
+	const [isLoading, setIsLoading] = useState(false);
 
 	// Update selected model when modelId prop changes
 	useEffect(() => {
@@ -256,7 +251,7 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 		handleInputChange,
 		stop,
 		clearChat: clearMessages,
-		status,
+		status: chatStatus,
 		error: chatError,
 	} = useChat({
 		model: chatModel,
@@ -264,8 +259,8 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 
 	// For debugging
 	useEffect(() => {
-		console.log("Current model status:", status);
-	}, [status]);
+		console.log("Current model status:", chatStatus);
+	}, [chatStatus]);
 
 	// For debugging chat errors
 	useEffect(() => {
@@ -285,13 +280,12 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 		.find(message => message.role === "assistant");
 
 	const handleLoadModel = async () => {
-		setIsModelLoading(true);
-		setLoadingProgress({ loaded: 0, total: 0 });
-		setError(null);
-
 		try {
-			// Load the model with the selected model name
-			const loadedModel = await loadModel(selectedModel, {
+			setStatus("Loading model...");
+			setIsLoading(true);
+			setLoadingProgress({ loaded: 0, total: 0 });
+
+			const model = await loadModel(selectedModel, {
 				onProgress: (info: ProgressInfo) => {
 					if (info.status === "progress") {
 						setLoadingProgress({
@@ -302,18 +296,16 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 				},
 			});
 
-			// Set the model locally
-			setModel(loadedModel);
-		} catch (err) {
-			setError(`Failed to load model: ${err instanceof Error ? err.message : String(err)}`);
-			console.error("Error loading model:", err);
-			setIsModelLoading(false);
+			setModel(model);
+			setStatus(`Model loaded (${model.provider === "worker" ? "Worker" : "Main"} thread)`);
+		} catch (error) {
+			setStatus(`Error loading model: ${error instanceof Error ? error.message : String(error)}`);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
-	const handleModelChange = (value: string) => {
-		setSelectedModel(value);
-		// Reset model if already loaded
+	const handleUnloadModel = () => {
 		if (model) {
 			setModel(null);
 		}
@@ -353,7 +345,7 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 			<div className="flex-grow flex flex-col h-full">
 				{!model ? (
 					<div className="flex flex-col items-center justify-center h-full space-y-8">
-						{isModelLoading ? (
+						{isLoading ? (
 							<div className="w-full max-w-md space-y-4">
 								<Progress value={progressPercentage} className="h-4 bg-black" />
 								<div className="flex justify-between text-sm text-muted-foreground">
@@ -367,7 +359,7 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 								onClick={handleLoadModel}
 								size="lg"
 								className="relative group overflow-hidden bg-black hover:bg-black/90 text-white font-bold text-xl py-8 px-16 rounded-lg shadow-lg transform transition-all hover:scale-105 border-2 border-transparent hover:border-primary/50"
-								disabled={isModelLoading}
+								disabled={isLoading}
 							>
 								<span className="relative z-10 flex items-center gap-2 text-2xl">LOAD MODEL</span>
 								<div className="absolute inset-0 bg-gradient-to-r from-[#9c27b0] via-[#673ab7] to-[#3f51b5] opacity-20 group-hover:opacity-30 transition-opacity"></div>
@@ -405,7 +397,7 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 
 												const isUser = message.role === "user";
 												const isStreaming =
-													status === "streaming" && message.id === lastAssistantMessage?.id;
+													chatStatus === "streaming" && message.id === lastAssistantMessage?.id;
 												const reasoningContent = !isUser ? getReasoningContent(message) : "";
 
 												return (
@@ -448,7 +440,7 @@ export function ChatInterface({ className = "", modelId }: ChatInterfaceProps): 
 									input={input}
 									handleInputChange={handleInputChange}
 									handleSubmit={handleSubmit}
-									status={status}
+									status={chatStatus}
 									stop={stop}
 									clearMessages={clearMessages}
 									modelLoaded={!!model}
