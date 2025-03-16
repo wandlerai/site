@@ -10,7 +10,7 @@ const config = {
 			},
 		],
 	},
-	serverExternalPackages: ["@huggingface/transformers"],
+	serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
 };
 
 export default config;
