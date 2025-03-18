@@ -11,18 +11,26 @@ const config = {
 		],
 	},
 
-	// External packages that should not be bundled
-	serverExternalPackages: ["onnxruntime-node", "@huggingface/transformers"],
+	// External packages that should not be bundled by the server
+	serverExternalPackages: ["onnxruntime-node", "@huggingface/transformers", "wandler"],
 
 	// Override the default webpack configuration
-	webpack: config => {
+	webpack: (config, { isServer }) => {
 		// Ignore node-specific modules when bundling for the browser
-		// See https://webpack.js.org/configuration/resolve/#resolvealias
 		config.resolve.alias = {
 			...config.resolve.alias,
-			sharp$: false,
-			"onnxruntime-node$": false,
+			"onnxruntime-node": false,
 		};
+
+		if (isServer) {
+			config.externals = [
+				...(Array.isArray(config.externals) ? config.externals : []),
+				"onnxruntime-node",
+				"@huggingface/transformers",
+				"wandler",
+			];
+		}
+
 		return config;
 	},
 };
